@@ -1,0 +1,62 @@
+.main-bg {
+    background-color: #c8e4c9;
+    font-family: 'Roboto';
+    height: 100vh;
+    padding: 18px;
+}
+
+.main-content {
+    background-color: white;
+    margin: 0 30%;
+    padding: 20px 3cm;
+    padding-bottom: 20%;
+    border-radius: 10px;
+}
+.m-header {
+    font-family: 'Montserrat';
+    font-weight: bold;
+    color: rgb(106, 124, 117);
+}
+.m-form {
+    font-family: 'PT Sans';
+}
+.mf-text {
+    margin: 12px 0;
+}
+.mf-inp-text input {
+    padding: 12px;
+    font-family: 'Noto Sans';
+    font-size: medium;
+    background-color: transparent;
+    border: 2px solid #929c92;
+    border-radius: 5px;
+    width: 70%;
+}
+.mf-inp-op select {
+    background-color: rgb(233, 233, 233);
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    font-family: 'Noto Sans';
+    font-size: medium;
+    width: 8cm;
+}
+.mf-inp-sub input {
+    margin-top: 1cm;
+    background-color: rgb(32, 150, 101);
+    color: white;
+    padding: 18px;
+    border: none;
+    border-radius: 10px;
+    text-align: left;
+    width: 5cm;
+    font-size: large;
+    font-family: 'PT sans';
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: .2s;
+}
+.mf-inp-sub input:hover {
+    background-color: rgb(43, 175, 120);
+}

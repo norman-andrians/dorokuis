@@ -1,0 +1,54 @@
+body {
+    background-color: rgb(32, 150, 101);
+}
+
+.main-box {
+    background-color: white;
+    margin: 0 30%;
+    padding: 10px 20px;
+    text-align: center;
+    height: 100vh;
+    position: relative;
+}
+.main-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.main-head {
+    font-size: 1.2cm;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+}
+.inp-text {
+    margin: 17px 0;
+}
+.inp-text input {
+    background-color: rgb(230, 236, 234);
+    border: none;
+    padding: 20px 22px;
+    width: 300px;
+    border-radius: 10px;
+    font-family: 'Noto Sans', sans-serif;
+}
+.inp-sub input {
+    position: relative;
+    background-color: rgb(32, 150, 101);
+    color: white;
+    border: none;
+    font-family: 'montserrat', sans-serif;
+    padding: 18px 20px;
+    width: 200px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .2s;
+}
+.inp-sub input:hover {
+    background-color: rgb(30, 126, 86);
+}
+.warn-text {
+    font-size: small;
+    color: red;
+    margin-bottom: 20px;
+}
