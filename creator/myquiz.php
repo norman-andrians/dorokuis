@@ -1,35 +1,15 @@
 <?php
 include '../connect.php';
 
-$code = 42312;
+$data;
+$usercode;
+$code;
 
-$data = mysqli_query($connection, "SELECT * FROM `gquiz` WHERE `ncode` = $code ORDER BY `gnum`");
+if (isset($_COOKIE['user']) && isset($_GET['id'])) {
+    $usercode = $_COOKIE['user'];
+    $code = $_GET['id'];
 
-$username = $_COOKIE['user'];
-
-if (isset($_POST['del']) && $_POST['num'] != '' && $_POST['del'] == "true") {
-    $deleteIndex = (int)$_POST['del'];
-
-    mysqli_query($connection, "DELETE FROM `gquiz` WHERE `ncode` = $code AND `gnum` = $deleteIndex");
-
-    header("location:myquiz.php");
-}
-
-if (isset($_POST['added']) && isset($_POST['qname'])
-    && isset($_POST['opt1']) && isset($_POST['opt2']) && isset($_POST['opt3']) && isset($_POST['opt4'])
-    && isset($_POST['gans']))
-{
-    $qname = $_POST['qname'];
-    $options = array($_POST['opt1'], $_POST['opt2'], $_POST['opt3'], $_POST['opt4']);
-    $answer = $_POST['gans'];
-    $name = mysqli_fetch_array(mysqli_query($connection, "SELECT `gname` FROM `gquiz` WHERE `ncode` = $code ORDER BY `gnum`"))[0];
-    $num = mysqli_fetch_array(mysqli_query($connection, "SELECT COUNT(*) FROM `gquiz` WHERE `ncode` = $code ORDER BY `gnum`"))[0] + 1;
-
-    $tquery = "INSERT INTO `gquiz` (`id`, `ncode`, `gname`, `gauthor`, `gtime`, `gscore`, `gnum`, `gquest`, `opa`, `opb`, `opc`, `opd`, `gans`) VALUES (NULL, '$code', '$qname', '$username', '400', '200', '$num', '$qname', '".$options[0]."', '".$options[1]."', '".$options[2]."', '".$options[3]."', '$answer')";
-
-    mysqli_query($connection, $tquery);
-
-    header("location:myquiz.php");
+    $data = mysqli_query($connection, "SELECT * FROM `gquiz` WHERE `qid` = $code ORDER BY `gnum`");
 }
 
 function markedAnswer($ans, $nums) {
@@ -74,9 +54,9 @@ function markedAnswer($ans, $nums) {
     ?>
     <div class="add-popup">
         <div class="add-box">
-            <div class="ab-close-btn"><a href="./myquiz.php"><button><i class="fa-solid fa-xmark"></i></button></a></div>
+            <div class="ab-close-btn"><a href="./myquiz.php?id=<?php echo $code; ?>"><button><i class="fa-solid fa-xmark"></i></button></a></div>
             <h1 class="adf-title">Add new question</h1>
-            <form action="./myquiz.php" method="post" class="add-form">
+            <form action="./quiz-data.php" method="post" class="add-form">
                 <div class="adf-inp"><input type="text" name="qname" id="name" placeholder="Type your question here..."></div>
                 <div class="adf-desc">Click alphabet options to settle on the correct answer</div>
                 <div class="qoptions">
@@ -86,21 +66,23 @@ function markedAnswer($ans, $nums) {
                     <div class="opt-row"><div class="opt-alp"><button type="button">D. </button></div><div class="adf-opt"><input type="text" name="opt4" id="" placeholder="Type on answer option here..."></div></div>
                 </div>
                 <input id="addanswer" type="hidden" name="gans" value="">
+                <input type="hidden" name="id" value="<?php echo $code; ?>">
                 <div class="adf-button"><button type="submit" name="added" value="true">Add</button></div>
             </form>
         </div>
     </div>
     <?php
     }
-    else if (isset($_GET['del']) && $_GET['del'] == "false" && $_GET['num'] != '') {
+    else if (isset($_GET['del']) && $_GET['del'] == "false" && $_GET['ncode'] != '') {
     ?>
     <div class="delete-popup add-popup">
         <div class="del-box add-box">
-            <div class="ab-close-btn"><a href="./myquiz.php"><button><i class="fa-solid fa-xmark"></i></button></a></div>
+            <div class="ab-close-btn"><a href="./myquiz.php?id=<?php echo $code; ?>"><button><i class="fa-solid fa-xmark"></i></button></a></div>
             <h1 class="adf-title">Delete Question</h1>
             <div class="del-desc">Are you sure want to delete this question?</div>
-            <form class="del-btns" method="POST">
-                <input type="hidden" name="num" value="<?php echo $_GET['num'] ?>">
+            <form class="del-btns" action="./quiz-data.php" method="POST">
+                <input type="hidden" name="ncode" value="<?php echo $_GET['ncode'] ?>">
+                <input type="hidden" name="id" value="<?php echo $code; ?>">
                 <button type="submit" name="del" value="true">Yes</button>
                 <button>No</button>
             </form>
@@ -110,7 +92,7 @@ function markedAnswer($ans, $nums) {
     }
     ?>
     <div class="quiz-title">
-        <h1><?php echo mysqli_fetch_array(mysqli_query($connection, "SELECT `gname` FROM `gquiz` WHERE `ncode` = $code"))[0]; ?></h1>
+        <h1><?php echo mysqli_fetch_array(mysqli_query($connection, "SELECT `name` FROM `quiz` WHERE `qid` = $code"))[0]; ?></h1>
     </div>
     <div class="main-quiz">
         <div class="q-rows">
@@ -127,9 +109,9 @@ function markedAnswer($ans, $nums) {
                 </div>
                 <div class="q-ed">
                     <div class="q-edit-btn"><button>Edit</button></div>
-                    <form class="q-del-btn">
-                        <a href="?num=<?php echo $qrows['gnum']; ?>&del=false"><button>Delete</button></a>
-                    </form>
+                    <div class="q-del-btn">
+                        <a href="?id=<?php echo $code; ?>&ncode=<?php echo $qrows['ncode']; ?>&del=false"><button>Delete</button></a>
+                    </div>
                 </div>
             </div>
             <?php
@@ -137,7 +119,7 @@ function markedAnswer($ans, $nums) {
         }
         ?>
         </div>
-        <div class="add-btn"><a href="?add=yes"><button id="add-btn">Add</button></a></div>
+        <div class="add-btn"><a href="?add=yes&id=<?php echo $code; ?>"><button id="add-btn">Add</button></a></div>
     </div>
     <div class="propos-btns">
         <button>Public</button>

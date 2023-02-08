@@ -12,7 +12,7 @@ if (isset($_POST['login'])) {
     while ($rows = mysqli_fetch_array($data)) {
         if ($usermail == $rows['usermail'] && $userpass == $rows['userpass']) {
             $correct = true;
-            setcookie("user", $rows['username'], time() + (86400 * 30), "/"); // 86400 = 1hari
+            setcookie("user", $rows['u_id'], time() + (86400 * 30), "/"); // 86400 = 1hari
             header("location:../user");
             break;
         }

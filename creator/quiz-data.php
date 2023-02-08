@@ -1,18 +1,42 @@
 <?php
-if (isset($_POST['added']) && isset($_POST['qname'])
-&& isset($_POST['opt1']) && isset($_POST['opt2']) && isset($_POST['opt3']) && isset($_POST['opt4'])
-&& isset($_POST['gans']))
-{
-$qname = $_POST['qname'];
-$options = array($_POST['opt1'], $_POST['opt2'], $_POST['opt3'], $_POST['opt4']);
-$answer = $_POST['gans'];
-$name = mysqli_fetch_array(mysqli_query($connection, "SELECT `gname` FROM `gquiz` WHERE `ncode` = $code ORDER BY `gnum`"))[0];
-$num = mysqli_fetch_array(mysqli_query($connection, "SELECT COUNT(*) FROM `gquiz` WHERE `ncode` = $code ORDER BY `gnum`"))[0] + 1;
+include '../connect.php';
 
-$tquery = "INSERT INTO `gquiz` (`id`, `ncode`, `gname`, `gauthor`, `gtime`, `gscore`, `gnum`, `gquest`, `opa`, `opb`, `opc`, `opd`, `gans`) VALUES (NULL, '$code', '$qname', '$username', '400', '200', '$num', '$qname', '".$options[0]."', '".$options[1]."', '".$options[2]."', '".$options[3]."', '$answer')";
+if (isset($_POST['id'])) {
+    $code = $_POST['id'];
 
-mysqli_query($connection, $tquery);
+    if (isset($_POST['del']) && $_POST['ncode'] != '' && $_POST['del'] == "true") {
+        $deleteCode = $_POST['ncode'];
 
-header("loaction:myquiz.php");
+        mysqli_query($connection, "DELETE FROM `gquiz` WHERE `ncode` = $deleteCode");
+
+        header("location:myquiz.php?id=$code");
+    }
+
+    if (
+        isset($_POST['added']) && isset($_POST['qname'])
+        && isset($_POST['opt1']) && isset($_POST['opt2']) && isset($_POST['opt3']) && isset($_POST['opt4'])
+        && isset($_POST['gans'])
+    ) {
+        $answer = $_POST['gans'];
+
+        if ($answer != "") {
+            $qcode = rand(100000, 999999);
+
+            $qname = $_POST['qname'];
+            $options = array($_POST['opt1'], $_POST['opt2'], $_POST['opt3'], $_POST['opt4']);
+            $num = mysqli_num_rows(mysqli_query($connection, "SELECT * FROM `gquiz` WHERE `qid` = $code ORDER BY `gnum`")) + 1;
+
+            $tquery = "INSERT INTO `gquiz` (`id`, `ncode`, `qid`, `gname`, `gtime`, `gscore`, `gnum`, `gquest`, `opa`, `opb`, `opc`, `opd`, `gans`) VALUES (NULL, '$qcode', '$code', '$qname', '400', '200', '$num', '$qname', '" . $options[0] . "', '" . $options[1] . "', '" . $options[2] . "', '" . $options[3] . "', '$answer')";
+            mysqli_query($connection, $tquery);
+
+            header("location:myquiz.php?id=$code");
+        }
+        else {
+            header("location:myquiz.php?id=$code&add=yes&answer=null");
+        }
+    }
+}
+else {
+    header("location:../");
 }
 ?>

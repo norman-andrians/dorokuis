@@ -1,3 +1,8 @@
+<?php
+if (!isset($_COOKIE["user"])) {
+    header(("location:../"));
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,11 +16,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
-    <?php
-    if (isset($_COOKIE["user"])) {
-        // code
-    }
-    ?>
     <div class="main-navigation">
         <div class="main-name row-nav-content">
             <div class="logo-name"><span class="lt">Doro</span>kuis</div>

@@ -1,22 +1,30 @@
 <?php
-if (isset($_POST['value'])) {
+include '../connect.php';
+
+if (isset($_POST['make'])) {
+    $name = $_POST['qname'];
+    $option = $_POST['optype'];
+    $subject = $_POST['subjects'];
+
     $newcode = 0;
+    $af = 5;
 
     do {
         $newcode = rand(10000, 99999);
 
-        $qcodefile = "q-$newcode.php";
-        $qfiletemplate = "idk";
+        $result = mysqli_query($connection, "SELECT * FROM `quiz` WHERE `qid` = '$newcode'");
 
-        if (!file_exists($qcodefile)) {
-            $qfile = fopen($qcodefile, "w");
+        if (mysqli_num_rows($result) < 1) {
+            $user_id = $_COOKIE['user'];
 
-            fwrite($qfile, $qfiletemplate);
-            fclose($qfile);
+            $query = "INSERT INTO `quiz` (`id`, `qid`, `author_id`, `name`, `option`, `type`) VALUES (NULL, '$newcode', '$user_id', '$name', '$option', '$subject')";
+            mysqli_query($connection, $query);
+
+            header("location:myquiz.php?id=$newcode");
             break;
         }
     }
-    while (true);
+    while ($af < 5);
 }
 ?>
 
@@ -59,7 +67,7 @@ if (isset($_POST['value'])) {
                         ?>
                     </select>
                 </div>
-                <div class="mf-inp-sub"><input type="submit" value="Next" name="value"></div>
+                <div class="mf-inp-sub"><input type="submit" value="Next" name="make"></div>
             </form>
         </div>
     </div>
