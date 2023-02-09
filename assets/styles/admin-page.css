@@ -132,6 +132,63 @@ body {
 
 .myquiz-c-row {
     background-color: white;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
+    display: flex;
+    margin-top: 30px;
+    margin-right: 30px;
+}
+.myquiz-c-sect {
+    width: 50%;
+}
+.myquiz-c-title {
+    font-family: 'pt sans';
+    font-size: x-large;
+    font-weight: bold;
+    color: rgb(64, 75, 70);
+}
+.myquiz-c-info > .myquiz-info-row {
+    background-color: rgb(232, 243, 239);
+    color: rgb(90, 126, 112);
+    padding: 10px;
+    font-size: small;
+    font-family: 'noto sans';
+    margin: 8px 0;
+    width: 200px;
+    border-radius: 10px;
+}
+.myquiz-c-actions {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.myquiz-edit-btn button, .myquiz-delete-btn button {
+    font-family: 'Noto sans';
+    font-weight: bold;
+    border: none;
+    color: white;
+    width: 150px;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.myquiz-edit-btn button {
+    background-color: rgb(32, 150, 101);
+}
+.myquiz-delete-btn button {
+    background-color: crimson;
+}
+.myquiz-create button {
+    margin-top: 20px;
+    padding: 15px;
+    font-size: medium;
+    font-family: 'pt sans';
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(32, 150, 101);
+    color: white;
+    width: 100px;
+    cursor: pointer;
 }

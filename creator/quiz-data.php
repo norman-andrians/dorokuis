@@ -4,12 +4,17 @@ include '../connect.php';
 if (isset($_POST['id'])) {
     $code = $_POST['id'];
 
-    if (isset($_POST['del']) && $_POST['ncode'] != '' && $_POST['del'] == "true") {
-        $deleteCode = $_POST['ncode'];
+    if (isset($_POST['del'])) {
+        if ($_POST['ncode'] != '' && $_POST['del'] == "true") {
+            $deleteCode = $_POST['ncode'];
 
-        mysqli_query($connection, "DELETE FROM `gquiz` WHERE `ncode` = $deleteCode");
+            mysqli_query($connection, "DELETE FROM `gquiz` WHERE `ncode` = $deleteCode");
 
-        header("location:myquiz.php?id=$code");
+            header("location:myquiz.php?id=$code");
+        }
+        else {
+            header("location:myquiz.php?id=$code");
+        }
     }
 
     if (

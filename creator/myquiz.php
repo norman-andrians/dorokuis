@@ -65,9 +65,38 @@ function markedAnswer($ans, $nums) {
                     <div class="opt-row"><div class="opt-alp"><button type="button">C. </button></div><div class="adf-opt"><input type="text" name="opt3" id="" placeholder="Type on answer option here..."></div></div>
                     <div class="opt-row"><div class="opt-alp"><button type="button">D. </button></div><div class="adf-opt"><input type="text" name="opt4" id="" placeholder="Type on answer option here..."></div></div>
                 </div>
+                <div class="adf-warn"><?php if (isset($_GET['answer']) && $_GET['answer'] == "null") {
+                    echo "please choose one answer"; } ?></div>
                 <input id="addanswer" type="hidden" name="gans" value="">
                 <input type="hidden" name="id" value="<?php echo $code; ?>">
                 <div class="adf-button"><button type="submit" name="added" value="true">Add</button></div>
+            </form>
+        </div>
+    </div>
+    <?php
+    }
+    else if (isset($_GET['edit'])) {
+        $ncode = $_GET['ncode'];
+        $current_quiz = mysqli_fetch_array(mysqli_query($connection, "SELECT * FROM `gquiz` WHERE `ncode` = $ncode"));
+    ?>
+    <div class="add-popup">
+        <div class="add-box">
+            <div class="ab-close-btn"><a href="./myquiz.php?id=<?php echo $code; ?>"><button><i class="fa-solid fa-xmark"></i></button></a></div>
+            <h1 class="adf-title">Edit question</h1>
+            <form action="./quiz-data.php" method="post" class="add-form">
+                <div class="adf-inp"><input type="text" name="qname" id="name" placeholder="Type your question here..." value="<?php echo $current_quiz['gname']; ?>"></div>
+                <div class="adf-desc">Click alphabet options to settle on the correct answer</div>
+                <div class="qoptions">
+                    <div class="opt-row"><div class="opt-alp"><button type="button">A. </button></div><div class="adf-opt"><input type="text" name="opt1" id="" value="<?php echo $current_quiz['opa']; ?>" placeholder="Type on answer option here..."></div></div>
+                    <div class="opt-row"><div class="opt-alp"><button type="button">B. </button></div><div class="adf-opt"><input type="text" name="opt2" id="" value="<?php echo $current_quiz['opb']; ?>" placeholder="Type on answer option here..."></div></div>
+                    <div class="opt-row"><div class="opt-alp"><button type="button">C. </button></div><div class="adf-opt"><input type="text" name="opt3" id="" value="<?php echo $current_quiz['opc']; ?>" placeholder="Type on answer option here..."></div></div>
+                    <div class="opt-row"><div class="opt-alp"><button type="button">D. </button></div><div class="adf-opt"><input type="text" name="opt4" id="" value="<?php echo $current_quiz['opd']; ?>" placeholder="Type on answer option here..."></div></div>
+                </div>
+                <div class="adf-warn"><?php if (isset($_GET['answer']) && $_GET['answer'] == "null") {
+                    echo "please choose one answer"; } ?></div>
+                <input id="editanswer" type="hidden" name="gans" value="<?php echo $current_quiz['gans']; ?>">
+                <input type="hidden" name="id" value="<?php echo $code; ?>">
+                <div class="adf-button"><button type="submit" name="added" value="true">Apply</button></div>
             </form>
         </div>
     </div>
@@ -83,8 +112,8 @@ function markedAnswer($ans, $nums) {
             <form class="del-btns" action="./quiz-data.php" method="POST">
                 <input type="hidden" name="ncode" value="<?php echo $_GET['ncode'] ?>">
                 <input type="hidden" name="id" value="<?php echo $code; ?>">
-                <button type="submit" name="del" value="true">Yes</button>
-                <button>No</button>
+                <button id="del" type="submit" name="del" value="true">Yes</button>
+                <button id="nope" type="submit" name="del" value="false">No</button>
             </form>
         </div>
     </div>
@@ -108,7 +137,8 @@ function markedAnswer($ans, $nums) {
                     <div class="q-opt-row anss-<?php echo $qrows['gnum'] ?>"><?php echo $qrows['opd'] ?></div>
                 </div>
                 <div class="q-ed">
-                    <div class="q-edit-btn"><button>Edit</button></div>
+                    <div class="q-edit-btn">
+                        <a href="?id=<?php echo $code; ?>&ncode=<?php echo $qrows['ncode']; ?>&edit=yes"><button>Edit</button></a></div>
                     <div class="q-del-btn">
                         <a href="?id=<?php echo $code; ?>&ncode=<?php echo $qrows['ncode']; ?>&del=false"><button>Delete</button></a>
                     </div>

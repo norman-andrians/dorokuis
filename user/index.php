@@ -56,18 +56,22 @@ else {
             while ($qrows = mysqli_fetch_array($quiz_data)) {
                 ?>
         <div class="myquiz-c-row">
-            <div class="myquiz-c-title"><?php echo $qrows['name']; ?></div>
-            <div class="myquiz-c-info">
-                <div class="myquiz-info-row"><?php echo $qrows['option']; ?></div>
-                <div class="myquiz-info-row"><?php echo $qrows['type']; ?></div>
+            <div class="myquiz-c-sect">
+                <div class="myquiz-c-title"><?php echo $qrows['name']; ?></div>
+                <div class="myquiz-c-info">
+                    <div class="myquiz-info-row"><?php echo $qrows['option']; ?></div>
+                    <div class="myquiz-info-row"><?php echo $qrows['type']; ?></div>
+                </div>
             </div>
-            <div class="myquiz-c-actions">
-                <form action="../creator/myquiz.php" method="get" class="myquiz-edit-btn">
-                    <button type="submit" name="id" value="<?php echo $qrows['qid']; ?>">Edit</button>
-                </form>
-                <form action="../creator/myquiz.php" method="get" class="myquiz-delete-btn">
-                    <button type="submit" name="delete" value="<?php echo $qrows['qid']; ?>">Hapus</button>
-                </form>
+            <div class="myquiz-c-sect">
+                <div class="myquiz-c-actions">
+                    <form action="../creator/myquiz.php" method="get" class="myquiz-edit-btn">
+                        <button type="submit" name="id" value="<?php echo $qrows['qid']; ?>">Edit</button>
+                    </form>
+                    <form action="../creator/myquiz.php" method="get" class="myquiz-delete-btn">
+                        <button type="submit" name="delete" value="<?php echo $qrows['qid']; ?>">Delete</button>
+                    </form>
+                </div>
             </div>
         </div>
                 <?php

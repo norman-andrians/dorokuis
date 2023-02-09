@@ -210,3 +210,28 @@ body {
     padding: 12px;
     width: 120px;
 }
+.adf-warn {
+    font-family: 'roboto';
+    font-size: small;
+    color: crimson;
+}
+.del-btns {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.del-btns #del, .del-btns #nope {
+    padding: 12px;
+    font-family: 'pt sans';
+    font-weight: bold;
+    width: 49%;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.del-btns #del {
+    background-color: crimson;
+}
+.del-btns #nope {
+    background-color: rgb(32, 150, 101);
+}
