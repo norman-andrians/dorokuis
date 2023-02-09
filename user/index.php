@@ -1,6 +1,14 @@
 <?php
-if (!isset($_COOKIE["user"])) {
-    header(("location:../"));
+include "../connect.php";
+
+$quiz_data;
+
+if (isset($_COOKIE["user"])) {
+    $user_id = $_COOKIE["user"];
+    $quiz_data = mysqli_query($connection, "SELECT * FROM `quiz` WHERE `author_id` = '$user_id'");
+}
+else {
+    header("location:../");
 }
 ?>
 <!DOCTYPE html>
@@ -43,10 +51,39 @@ if (!isset($_COOKIE["user"])) {
         </div>
     </div>
     <div class="dtab-menu-content myquiz-c" style="display: none;">
+        <?php
+        if (mysqli_num_rows($quiz_data) > 0) {
+            while ($qrows = mysqli_fetch_array($quiz_data)) {
+                ?>
+        <div class="myquiz-c-row">
+            <div class="myquiz-c-title"><?php echo $qrows['name']; ?></div>
+            <div class="myquiz-c-info">
+                <div class="myquiz-info-row"><?php echo $qrows['option']; ?></div>
+                <div class="myquiz-info-row"><?php echo $qrows['type']; ?></div>
+            </div>
+            <div class="myquiz-c-actions">
+                <form action="../creator/myquiz.php" method="get" class="myquiz-edit-btn">
+                    <button type="submit" name="id" value="<?php echo $qrows['qid']; ?>">Edit</button>
+                </form>
+                <form action="../creator/myquiz.php" method="get" class="myquiz-delete-btn">
+                    <button type="submit" name="delete" value="<?php echo $qrows['qid']; ?>">Hapus</button>
+                </form>
+            </div>
+        </div>
+                <?php
+            }
+        ?>
+        <div class="myquiz-create"><button class="btn-create">Create</button></div>
+        <?php
+        } else {
+        ?>
         <div class="no-quiz">
             <h1>You haven't created any quiz yet</h1>
             <div class="mq-create"><button class="btn-create">Create</button></div>
         </div>
+        <?php
+        }
+        ?>
     </div>
     <script src="../assets/scripts/nav-user.js"></script>
 </body>
