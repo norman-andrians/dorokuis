@@ -68,7 +68,7 @@ else {
                     <form action="../creator/myquiz.php" method="get" class="myquiz-edit-btn">
                         <button type="submit" name="id" value="<?php echo $qrows['qid']; ?>">Edit</button>
                     </form>
-                    <form action="../creator/myquiz.php" method="get" class="myquiz-delete-btn">
+                    <form action="index.php" method="get" class="myquiz-delete-btn">
                         <button type="submit" name="delete" value="<?php echo $qrows['qid']; ?>">Delete</button>
                     </form>
                 </div>

@@ -40,6 +40,44 @@ if (isset($_POST['id'])) {
             header("location:myquiz.php?id=$code&add=yes&answer=null");
         }
     }
+
+    if (
+        isset($_POST['edited']) && isset($_POST['qname'])
+        && isset($_POST['opt1']) && isset($_POST['opt2']) && isset($_POST['opt3']) && isset($_POST['opt4'])
+        && isset($_POST['gans']) && isset($_POST['ncode'])
+    ) {
+        $answer = $_POST['gans'];
+        $ncode = $_POST['ncode'];
+        $result = mysqli_query($connection, "SELECT * FROM `gquiz` WHERE `qid` = '$code' AND `ncode` = '$ncode'");
+
+        if ($answer != "") {
+            if (mysqli_num_rows($result) == 1) {
+                $qcode = rand(100000, 999999);
+
+                $qname = $_POST['qname'];
+                $options = array($_POST['opt1'], $_POST['opt2'], $_POST['opt3'], $_POST['opt4']);
+
+                $tquery = "UPDATE `gquiz` SET `gname` = '$qname', ";
+                $tquery .= "`gquest` = '$qname', ";
+                $tquery .= "`opa` = '$options[0]', ";
+                $tquery .= "`opb` = '$options[1]', ";
+                $tquery .= "`opc` = '$options[2]', ";
+                $tquery .= "`opd` = '$options[3]', ";
+                $tquery .= "`gans` = '$answer' ";
+                $tquery .= "WHERE `qid` = '$code' AND `ncode` = '$ncode'";
+
+                mysqli_query($connection, $tquery);
+
+                header("location:myquiz.php?id=$code");
+            }
+            else {
+                header("location:myquiz.php?id=$code&add=yes&error=add");
+            }
+        }
+        else {
+            header("location:myquiz.php?id=$code&add=yes&answer=null");
+        }
+    }
 }
 else {
     header("location:../");

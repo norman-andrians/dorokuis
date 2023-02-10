@@ -96,7 +96,8 @@ function markedAnswer($ans, $nums) {
                     echo "please choose one answer"; } ?></div>
                 <input id="editanswer" type="hidden" name="gans" value="<?php echo $current_quiz['gans']; ?>">
                 <input type="hidden" name="id" value="<?php echo $code; ?>">
-                <div class="adf-button"><button type="submit" name="added" value="true">Apply</button></div>
+                <input type="hidden" name="ncode" value="<?php echo $ncode; ?>">
+                <div class="adf-button"><button type="submit" name="edited" value="true">Apply</button></div>
             </form>
         </div>
     </div>
