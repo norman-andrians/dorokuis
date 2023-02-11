@@ -2,10 +2,12 @@
 include "../connect.php";
 
 $quiz_data;
+$user_data;
 
 if (isset($_COOKIE["user"])) {
     $user_id = $_COOKIE["user"];
     $quiz_data = mysqli_query($connection, "SELECT * FROM `quiz` WHERE `author_id` = '$user_id'");
+    $user_data = mysqli_fetch_array(mysqli_query($connection, "SELECT * FROM `userccount` WHERE `u_id` = '$user_id'"));
 }
 else {
     header("location:../");
@@ -32,7 +34,7 @@ else {
             <div class="ab-close-btn"><a href="./myquiz.php?id=<?php echo $code; ?>"><button><i class="fa-solid fa-xmark"></i></button></a></div>
             <h1 class="adf-title">Delete Quiz</h1>
             <div class="del-desc">Are you sure want to delete this quiz?</div>
-            <form class="del-btns" action="./quiz-data.php" method="POST">
+            <form class="del-btns" action="./quiz.php" method="POST">
                 <input type="hidden" name="code" value="<?php echo $_GET['delete'] ?>">
                 <input type="hidden" name="id" value="<?php echo $code; ?>">
                 <button id="del" type="submit" name="del" value="true">Yes</button>
@@ -46,7 +48,7 @@ else {
     <div class="main-navigation">
         <div class="main-name row-nav-content">
             <div class="logo-name"><span class="lt">Doro</span>kuis</div>
-            <div class="user-name"><?php echo $_COOKIE["user"]; ?></div>
+            <div class="user-name"><?php echo $user_data['username']; ?></div>
             <div class="typ-acc">Basic Account</div>
         </div>
         <div class="row-nav-content main-create">

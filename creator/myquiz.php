@@ -8,7 +8,6 @@ $code;
 if (isset($_COOKIE['user']) && isset($_GET['id'])) {
     $usercode = $_COOKIE['user'];
     $code = $_GET['id'];
-
     $data = mysqli_query($connection, "SELECT * FROM `gquiz` WHERE `qid` = $code ORDER BY `gnum`");
 }
 

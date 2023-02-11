@@ -30,7 +30,7 @@ else if (isset($_COOKIE["user"])) {
                 <input type="submit" value="Enter">
             </form>
             <div class="row-menu nm-btn"><a href="./login/"><button>Login</button></a></div>
-            <div class="row-menu nm-btn"><a href="#"><button>SignUp</button></a></div>
+            <div class="row-menu nm-btn"><a href="./signup"><button>SignUp</button></a></div>
         </div>
     </div>
     <div class="landing-page">

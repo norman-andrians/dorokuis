@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Feb 2023 pada 16.34
+-- Waktu pembuatan: 11 Feb 2023 pada 08.31
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 8.1.2
 
@@ -43,6 +43,14 @@ CREATE TABLE `gquiz` (
   `gans` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `gquiz`
+--
+
+INSERT INTO `gquiz` (`id`, `ncode`, `qid`, `gname`, `gtime`, `gscore`, `gnum`, `gquest`, `opa`, `opb`, `opc`, `opd`, `gans`) VALUES
+(2, 268116, 21417, '4 x 6 = ?', 400, 200, 1, '4 x 6 = ?', '21', '12', '48', '24', 'd'),
+(3, 717171, 21417, '81 / 9 = ?', 400, 200, 2, '81 / 9 = ?', '7', '9', '27', '5', 'b');
+
 -- --------------------------------------------------------
 
 --
@@ -63,7 +71,8 @@ CREATE TABLE `quiz` (
 --
 
 INSERT INTO `quiz` (`id`, `qid`, `author_id`, `name`, `option`, `type`) VALUES
-(1, 21417, 293825, 'Basic Math', 'multichoice', 'mathematics');
+(1, 21417, 293825, 'Basic Math', 'multichoice', 'mathematics'),
+(3, 59411, 766818, 'Simple tab', 'multichoice', 'biology');
 
 -- --------------------------------------------------------
 
@@ -84,7 +93,8 @@ CREATE TABLE `userccount` (
 --
 
 INSERT INTO `userccount` (`usermail`, `userpass`, `username`, `id`, `u_id`) VALUES
-('rusdi@gmail.com', 'rusdi1234', 'rusdifirman', 1, 293825);
+('rusdi@gmail.com', 'rusdi1234', 'rusdifirman', 1, 293825),
+('rai@gmail.com', 'etgtgrdet54seyh', 'RaiDan', 2, 766818);
 
 --
 -- Indexes for dumped tables
@@ -116,19 +126,19 @@ ALTER TABLE `userccount`
 -- AUTO_INCREMENT untuk tabel `gquiz`
 --
 ALTER TABLE `gquiz`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `userccount`
 --
 ALTER TABLE `userccount`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
