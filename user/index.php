@@ -24,6 +24,25 @@ else {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
+    <?php
+    if (isset($_GET['delete'])) {
+    ?>
+    <div class="delete-popup add-popup">
+        <div class="del-box add-box">
+            <div class="ab-close-btn"><a href="./myquiz.php?id=<?php echo $code; ?>"><button><i class="fa-solid fa-xmark"></i></button></a></div>
+            <h1 class="adf-title">Delete Quiz</h1>
+            <div class="del-desc">Are you sure want to delete this quiz?</div>
+            <form class="del-btns" action="./quiz-data.php" method="POST">
+                <input type="hidden" name="code" value="<?php echo $_GET['delete'] ?>">
+                <input type="hidden" name="id" value="<?php echo $code; ?>">
+                <button id="del" type="submit" name="del" value="true">Yes</button>
+                <button id="nope" type="submit" name="del" value="false">No</button>
+            </form>
+        </div>
+    </div>
+    <?php
+    }
+    ?>
     <div class="main-navigation">
         <div class="main-name row-nav-content">
             <div class="logo-name"><span class="lt">Doro</span>kuis</div>
@@ -68,7 +87,7 @@ else {
                     <form action="../creator/myquiz.php" method="get" class="myquiz-edit-btn">
                         <button type="submit" name="id" value="<?php echo $qrows['qid']; ?>">Edit</button>
                     </form>
-                    <form action="../creator/myquiz.php" method="get" class="myquiz-delete-btn">
+                    <form action="index.php" method="get" class="myquiz-delete-btn">
                         <button type="submit" name="delete" value="<?php echo $qrows['qid']; ?>">Delete</button>
                     </form>
                 </div>
